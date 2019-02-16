@@ -1,28 +1,26 @@
 {
   "manifest_version": 2,
-  "name": "STARTER_KIT",
+  "name": "Muzu Chatbot",
   "version": "0.0.1",
-  "version_name": "alpha",
-  "description": "DESCRIPTION",
+  "description": "Learning computational thinking practices",
   "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
+    "16": "images/muzu16.png",
+    "48": "images/muzu48.png",
+    "128": "images/muzu128.png"
   },
   "browser_action": {
     "default_icon": {
-      "20": "images/icon20.png",
-      "32": "images/icon32.png"
+      "20": "images/muzu20.png",
+      "32": "images/muzu32.png"
     },
-    "default_title": "STARTER_KIT",
+    "default_title": "Muzu Chatbot",
     "default_popup": "dist/index.html"
   },
-  "author": "Ean Platter eanplatter@gmail.com",
-  "homepage_url": "https://github.com/eanplatter/chrome-extention-starter#readme",
-  "incognito": "spanning",
+  "author": "",
+  "homepage_url": "https://github.com/jiangts/muzu",
   "minimum_chrome_version": "46",
   "permissions": [
     "tabs"
   ],
-  "short_name": "starter"
+  "short_name": "Muzu"
 }
