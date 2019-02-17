@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/eanplatter/chrome-extention-starter#readme",
   "dependencies": {
-    "botui": "^0.3.8",
-    "enclave": "^0.11.2"
+    "botui": "^0.3.8"
   }
 }

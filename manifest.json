@@ -11,8 +11,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "http://scratch.mit.edu/*",
+        "https://scratch.mit.edu/*"
       ],
       "css": [
         "dist/botui-theme-default.css",
