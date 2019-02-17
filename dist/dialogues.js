@@ -44,7 +44,7 @@ const dialogues = [
       },
       {
         speaker: 'bot',
-        content: `Nice to meet you %{name}! What are you hoping to create in Scratch today?`
+        content: `Nice to meet you {{=name}}! What are you hoping to create in Scratch today?`
       },
       {
         speaker: 'bot',
@@ -71,7 +71,7 @@ const dialogues = [
       },
       {
         speaker: 'bot',
-        content: `I don't know how to program myself, but am here to support you as you create your %{project}! Feel free to click on me whenever you want to chat. I will also check in on you from time to time. Happy programming!`
+        content: `I don't know how to program myself, but am here to support you as you create your {{=project}}! Feel free to click on me whenever you want to chat. I will also check in on you from time to time. Happy programming!`
       },
       {
         speaker: 'bot',
@@ -101,26 +101,33 @@ const dialogues = [
     type: 'confused',
     dialogue: [
       {
-        bot: `Sorry to hear that you're confused. But when you're confused, that's when you can learn the most! What are you confused about?`
+        speaker: 'bot',
+        content: `Sorry to hear that you're confused. But when you're confused, that's when you can learn the most! What are you confused about?`
       },
       {
-        human: 'text_input'
+        speaker: 'human',
+        input: {
+          variable: 'current_project'
+        }
       },
       {
-        bot: `Yes, that does sound challenging. Hm... maybe you can try some of these tips!`
+        speaker: 'bot',
+        content: `Yes, that does sound challenging. Hm... maybe you can try some of these tips!`
       },
       {
-        bot_buttons: [
+        speaker: 'bot',
+        variable: 'topic',
+        buttons: [
           {
             text: `Ask for help (maybe from a teacher or friend)`,
             value: 'ask_help'
           },
           {
-            text: `Look up examples of other %{current_project}`,
+            text: `Look up examples of other {{=current_project}}`,
             value: 'view_example'
           },
           {
-            text: `Click through some tutorials on %{current_project}`,
+            text: `Click through some tutorials on {{=current_project}}`,
             value: 'watch_tutorial'
           },
         ]

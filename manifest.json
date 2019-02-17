@@ -24,6 +24,7 @@
         "dist/botui.min.js",
         "dist/jquery-2.2.4.min.js",
         "dist/dialogues.js",
+        "dist/t.js",
         "content_script.js"
       ]
     }

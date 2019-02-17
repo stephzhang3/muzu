@@ -6,20 +6,85 @@ $(function() {
 
   var botui = new BotUI(widget_id);
 
-  // botui.message.add({
-  //   content: 'Hello World from bot!'
-  // }).then(function () { // wait till previous message has been shown.
 
-  //   botui.message.add({
-  //     delay: 1000,
-  //     human: true,
-  //     content: 'Hello World from human!'
-  //   });
-  // });
+  const compute_delay = string => {
+    return string.length * 10
+  }
 
-  // botui.message.add
+  const do_dialogue = (botui, dialogue, context) => {
+    let next_botui;
+    if(dialogue.input) {
+      let input = dialogue.input;
+      next_botui = botui.action.text({
+        action: {
+          placeholder: input.placeholder
+        }
+      }).then(res => {
+        context[input.variable] = res.value;
+      })
+    } else if (dialogue.buttons) {
+      let buttons = dialogue.buttons;
+      next_botui = botui.action.button({
+        action: buttons
+      }).then(res => {
+        if(res.value && buttons.find(o => o.value === res.value && o.type === 'input')) {
+          return botui.action.text({
+            action: {}
+          })
+        }
+        return res;
+      }).then(res => {
+        context[dialogue.variable] = res.value;
+      })
+    } else {
+      var template = new t(dialogue.content);
+      var content = template.render(context); // dialogue.content
+      var delay = compute_delay(dialogue.content);
 
-  /*
+      next_botui = botui.message.add({
+        [dialogue.speaker]: true,
+        loading: true
+      }).then(index => new Promise((fulfill, reject) => {
+        setTimeout(() => {
+          return botui.message.update(index, {
+            loading: false,
+            content,
+            delay
+          }).then(fulfill, reject);
+        }, delay);
+      }));
+    }
+    return next_botui.then(() => botui);
+  }
+
+  const run_dialogue = (botui, dialogues, context={}) => {
+    let conversation = dialogues[0].dialogue;
+    let inst = Promise.resolve(botui);
+    for(let i = 0; i < conversation.length; i++) {
+      inst = inst.then(botui => do_dialogue(botui, conversation[i], context))
+    }
+  }
+
+  run_dialogue(botui, dialogues);
+})
+
+
+
+
+// botui.message.add({
+//   content: 'Hello World from bot!'
+// }).then(function () { // wait till previous message has been shown.
+
+//   botui.message.add({
+//     delay: 1000,
+//     human: true,
+//     content: 'Hello World from human!'
+//   });
+// });
+
+// botui.message.add
+
+/*
   botui.message.bot({ // show first message
     delay: 200,
     content: 'hello'
@@ -56,87 +121,3 @@ $(function() {
   });
   */
 
-
-  const compute_delay = string => {
-    return string.length * 10
-  }
-
-
-  const do_dialogue = (botui, dialogue, context) => {
-    let next_botui;
-    if(dialogue.input) {
-      let input = dialogue.input;
-      next_botui = botui.action.text({
-        action: {
-          placeholder: input.placeholder
-        }
-      }).then(res => {
-        context[input.variable] = res.value;
-      })
-    } else if (dialogue.buttons) {
-      let buttons = dialogue.buttons;
-      next_botui = botui.action.button({
-        action: buttons
-      }).then(res => {
-        if(res.type && res.type === 'input') {
-          return botui.action.text()
-        }
-        return res;
-      }).then(res => {
-        context[dialogue.variable] = res.value;
-      })
-    } else {
-      next_botui = botui.message.add({
-        [dialogue.speaker]: true,
-        content: dialogue.content,
-        delay: compute_delay(dialogue.content)
-      })
-    }
-    return next_botui.then(() => {
-      return botui;
-    })
-  }
-
-  const run_dialogue = (botui, dialogues, context={}) => {
-    let conversation = dialogues[0].dialogue;
-    console.log('conversation', conversation);
-    let inst = Promise.resolve(botui);
-    for(let i = 0; i < conversation.length; i++) {
-      inst = inst.then(botui => do_dialogue(botui, conversation[i], context))
-    }
-  }
-
-  run_dialogue(botui, dialogues);
-})
-
-
-/*
-Confused:
-
-Sorry to hear that you're confused. But when you're confused, that's when you can learn the most! What are you confused about?
-______________
-Yes, that does sound challenging. Hm... maybe you can try some of these tips!
-Ask for help (maybe from a teacher or friend)
-Look up examples of other ________
-Click through some tutorials on _______
-Would you like to try any of these? If so, just click on the option you'd like to try.
-
-
-
-Intro:
-
-Hi! My name is Muzu, and I am here to support you as you program amazing things! What is your name?
-______________
-Nice to meet you ______! What are you hoping to create in Scratch today?
-Story
-Game
-Animation
-Other _________
-I donât know how to program myself, but am here to support you as you create your ________! Feel free to click on me whenever you want to chat. I will also check in on you from time to time. Happy programming!
-Hi Grace! How are you feeling about your program? Feel free to reply whenever you want!
-Excited!
-Confused
-Stuck
-Unstuck
-
- */
