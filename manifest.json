@@ -8,6 +8,26 @@
     "48": "images/muzu48.png",
     "128": "images/muzu128.png"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "css": [
+        "dist/botui-theme-default.css",
+        "dist/botui.min.css",
+        "dist/muzu.css"
+      ],
+      "js": [
+        "dist/vue.min.js",
+        "dist/botui.min.js",
+        "dist/jquery-2.2.4.min.js",
+        "dist/dialogues.js",
+        "content_script.js"
+      ]
+    }
+  ],
   "browser_action": {
     "default_icon": {
       "20": "images/muzu20.png",
