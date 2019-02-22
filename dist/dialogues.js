@@ -15,6 +15,9 @@ const states = [
   },
   {
     name: 'unstuck'
+  },
+  {
+    name: 'brain_points'
   }
 ];
 
@@ -131,6 +134,19 @@ const dialogues = [
             value: 'watch_tutorial'
           },
         ]
+      }
+    ]
+  },
+  {
+    type: 'brain_points',
+    dialogue: [
+      {
+        speaker: 'bot',
+        content: 'hi steph! I see that you just tried a new way to snap together code pieces! As you experiment, you are working your brain hard and learning!'
+      },
+      {
+        speaker: 'bot',
+        content: 'Experimenting with code! +5 brain points!'
       }
     ]
   }
