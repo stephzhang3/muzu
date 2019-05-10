@@ -1,153 +1,170 @@
-const start_state = 'intro';
+const start_state = "intro";
 
 const states = [
   {
-    name: 'intro'
+    name: "intro"
   },
   {
-    name: 'stuck'
+    name: "stuck"
   },
   {
-    name: 'challenged'
+    name: "challenged"
   },
   {
-    name: 'bored'
+    name: "bored"
   },
   {
-    name: 'unstuck'
+    name: "unstuck"
   },
   {
-    name: 'brain_points'
+    name: "brain_points"
   }
 ];
 
 const transitions = [
   {
-    name: 'figured_out'
+    name: "figured_out"
   },
   {
-    name: 'got_confused'
+    name: "got_confused"
   }
-]
+];
 
 const dialogues = [
   {
-    type: 'intro',
+    type: "intro",
     dialogue: [
       {
-        speaker: 'bot',
-        content: `Hi! My name is Muzu, and I am here to support you as you program amazing things! What is your name?`
+        speaker: "bot",
+        content: `Hi! My name is Muzu!`
       },
       {
-        speaker: 'human',
+        speaker: "bot",
+        content: `I'm here to support you as you create AMAZING things!`
+      },
+      {
+        speaker: "bot",
+        content: `What is your name?`
+      },
+      {
+        speaker: "human",
         input: {
-          variable: 'name',
-          placeholder: 'Your name'
+          variable: "name",
+          placeholder: "Your name"
         }
       },
       {
-        speaker: 'bot',
+        speaker: "bot",
         content: `Nice to meet you {{=name}}! What are you hoping to create in Scratch today?`
       },
       {
-        speaker: 'bot',
-        variable: 'project',
+        speaker: "bot",
+        variable: "project",
         buttons: [
           {
             text: `Story`,
-            value: 'story'
+            value: "story"
           },
           {
             text: `Game`,
-            value: 'game'
+            value: "game"
           },
           {
             text: `Animation`,
-            value: 'animation'
+            value: "animation"
           },
           {
             text: `Other`,
-            value: 'other',
-            type: 'input'
+            value: "other",
+            type: "input"
           }
         ]
       },
       {
-        speaker: 'bot',
-        content: `I don't know how to program myself, but am here to support you as you create your {{=project}}! Feel free to click on me whenever you want to chat. I will also check in on you from time to time. Happy programming!`
+        speaker: "bot",
+        content: `Wow, an {{=project}}, that sounds like fun!`
       },
       {
-        speaker: 'bot',
-        variable: 'feeling',
+        speaker: "bot",
+        content: `Do you need any help starting your {{=project}}, {{=name}}?`
+      },
+      {
+        speaker: "human",
+        variable: "needHelpStart",
         buttons: [
           {
-            text: 'Excited!',
-            value: 'excited'
+            text: `Yes, please!`,
+            value: "yes"
           },
           {
-            text: 'Confused',
-            value: 'confused'
-          },
-          {
-            text: 'Stuck',
-            value: 'stuck'
-          },
-          {
-            text: 'Unstuck',
-            value: 'unstuck'
+            text: `Nope!`,
+            value: "no"
           }
         ]
+      },
+      {
+        speaker: "bot",
+        content: `I don't know how to program myself, but will try to help you as you make your {{=project}}!`
+      },
+      {
+        speaker: "bot",
+        content: `Feel free to click on our chat box whenever`
+      },
+      {
+        speaker: "bot",
+        content: `Happy programming, {{=name}}!`
       }
     ]
   },
   {
-    type: 'confused',
+    type: "confused",
     dialogue: [
       {
-        speaker: 'bot',
+        speaker: "bot",
         content: `Sorry to hear that you're confused. But when you're confused, that's when you can learn the most! What are you confused about?`
       },
       {
-        speaker: 'human',
+        speaker: "human",
         input: {
-          variable: 'current_project'
+          variable: "current_project"
         }
       },
       {
-        speaker: 'bot',
+        speaker: "bot",
         content: `Yes, that does sound challenging. Hm... maybe you can try some of these tips!`
       },
       {
-        speaker: 'bot',
-        variable: 'topic',
+        speaker: "bot",
+        variable: "topic",
         buttons: [
           {
             text: `Ask for help (maybe from a teacher or friend)`,
-            value: 'ask_help'
+            value: "ask_help"
           },
           {
             text: `Look up examples of other {{=current_project}}`,
-            value: 'view_example'
+            value: "view_example"
           },
           {
             text: `Click through some tutorials on {{=current_project}}`,
-            value: 'watch_tutorial'
-          },
+            value: "watch_tutorial"
+          }
         ]
       }
     ]
   },
   {
-    type: 'brain_points',
+    type: "brain_points",
     dialogue: [
       {
-        speaker: 'bot',
-        content: 'hi steph! I see that you just tried a new way to snap together code pieces! As you experiment, you are working your brain hard and learning!'
+        speaker: "bot",
+        content:
+          "hi steph! I see that you just tried a new way to snap together code pieces! As you experiment, you are working your brain hard and learning!"
       },
       {
-        speaker: 'bot',
-        content: 'Experimenting with code! +5 brain points!'
+        speaker: "bot",
+        content: "Experimenting with code! +5 brain points!"
       }
     ]
   }
-]
+];

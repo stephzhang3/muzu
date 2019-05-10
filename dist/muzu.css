@@ -1,7 +1,40 @@
 #muzu-chatbot {
   z-index: 1000;
   position: fixed;
-  border: red 1px solid;
-  bottom: 5px;
+  bottom: 10px;
+  right: 500px;
+  width: 250px;
+  height: 250px;
+  font-size: 9px;
+}
+
+.minimize-button {
+  position: absolute;
+  z-index: 100000;
   right: 5px;
+  top: 5px;
+}
+
+.chatHeader {
+  position: absolute;
+  z-index: 100000;
+  top: -30px;
+  width: 250px;
+  height: 30px;
+  background-color: #f0b8b8;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.minimize-button.minimized {
+  position: fixed;
+  bottom: 5px;
+  top: auto;
+}
+
+#muzu-title {
+  font-style: inherit;
+  font-size: 12px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
 }

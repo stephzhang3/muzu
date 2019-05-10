@@ -1,75 +1,112 @@
 $(function() {
-  const widget_id = 'muzu-chatbot';
+  const widget_id = "muzu-chatbot";
 
-  $('body').append(`<div class="botui-app-container" id="${widget_id}"> </div>`)
-  document.getElementById(widget_id).innerHTML = '<bot-ui></bot-ui>';
+  $("body").append(
+    `<div class="botui-app-container" id="${widget_id}">
+
+    </div>`
+  );
+  document.getElementById(widget_id).innerHTML = "<bot-ui></bot-ui>";
 
   var botui = new BotUI(widget_id);
 
+  var $chatContainer = $("#" + widget_id);
+  // very jank, appending to div that BotUI technically owns.
+  // $chatContainer.append(
+  //   // to do a toolbar, make this look like a toolbar, and position it above
+  //   // the chat container
+  //   `<button class='minimize-button'>Minimize</button>`
+  // );
+  $chatContainer.append(`<div class='chatHeader' id='chatBotHeader'></div>`);
+  // var $header = $("#" + "chatBotHeader");
+  // $header.append(
+  //   // to do a toolbar, make this look like a toolbar, and position it above
+  //   // the chat container
+  //   `<button class='minimize-button'>Minimize</button>`
+  // );
+  document.getElementById("chatBotHeader").innerHTML =
+    "<p id='muzu-title'>Muzu</p><button class='minimize-button'>Minimize</button>";
+  var $minimizeButton = $(".minimize-button");
+  $minimizeButton.click(function(e) {
+    $chatContainer.style.display("none");
+    $minimizeButton.addClass("minimized");
+  });
 
   const compute_delay = string => {
-    return string.length * 10
-  }
+    return string.length * 10;
+  };
 
   const do_dialogue = (botui, dialogue, context) => {
     let next_botui;
-    if(dialogue.input) {
+    if (dialogue.input) {
       let input = dialogue.input;
-      next_botui = botui.action.text({
-        action: {
-          placeholder: input.placeholder
-        }
-      }).then(res => {
-        context[input.variable] = res.value;
-      })
+      next_botui = botui.action
+        .text({
+          action: {
+            placeholder: input.placeholder
+          }
+        })
+        .then(res => {
+          context[input.variable] = res.value;
+        });
     } else if (dialogue.buttons) {
       let buttons = dialogue.buttons;
-      next_botui = botui.action.button({
-        action: buttons
-      }).then(res => {
-        if(res.value && buttons.find(o => o.value === res.value && o.type === 'input')) {
-          return botui.action.text({
-            action: {}
-          })
-        }
-        return res;
-      }).then(res => {
-        context[dialogue.variable] = res.value;
-      })
+      next_botui = botui.action
+        .button({
+          action: buttons
+        })
+        .then(res => {
+          if (
+            res.value &&
+            buttons.find(o => o.value === res.value && o.type === "input")
+          ) {
+            return botui.action.text({
+              action: {}
+            });
+          }
+          return res;
+        })
+        .then(res => {
+          context[dialogue.variable] = res.value;
+        });
     } else {
       var template = new t(dialogue.content);
       var content = template.render(context); // dialogue.content
       var delay = compute_delay(dialogue.content);
 
-      next_botui = botui.message.add({
-        [dialogue.speaker]: true,
-        loading: true
-      }).then(index => new Promise((fulfill, reject) => {
-        setTimeout(() => {
-          return botui.message.update(index, {
-            loading: false,
-            content,
-            delay
-          }).then(fulfill, reject);
-        }, delay);
-      }));
+      next_botui = botui.message
+        .add({
+          [dialogue.speaker]: true,
+          loading: true
+        })
+        .then(
+          index =>
+            new Promise((fulfill, reject) => {
+              setTimeout(() => {
+                return botui.message
+                  .update(index, {
+                    loading: false,
+                    content,
+                    delay
+                  })
+                  .then(fulfill, reject);
+              }, delay);
+            })
+        );
     }
     return next_botui.then(() => botui);
-  }
+  };
 
-  const run_dialogue = (botui, dialogues, context={}) => {
+  const run_dialogue = (botui, dialogues, context = {}) => {
     let conversation = dialogues[0].dialogue;
     let inst = Promise.resolve(botui);
-    for(let i = 0; i < conversation.length; i++) {
-      inst = inst.then(botui => do_dialogue(botui, conversation[i], context))
+    for (let i = 0; i < conversation.length; i++) {
+      inst = inst.then(botui => do_dialogue(botui, conversation[i], context));
     }
-  }
+  };
 
   run_dialogue(botui, dialogues);
-})
-
-
-
+});
 
 // botui.message.add({
 //   content: 'Hello World from bot!'
@@ -120,4 +157,3 @@ $(function() {
     });
   });
   */
-
