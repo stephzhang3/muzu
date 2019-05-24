@@ -82,7 +82,7 @@ const dialogues = [
       },
       {
         speaker: "bot",
-        content: `Wow, an {{=project}}, that sounds like fun!`
+        content: `Wow, a {{=project}}, that sounds like fun!`
       },
       {
         speaker: "bot",
@@ -104,16 +104,95 @@ const dialogues = [
       },
       {
         speaker: "bot",
-        content: `I don't know how to program myself, but will try to help you as you make your {{=project}}!`
+        content: `Alright! One way to start is by watching a tutorial`
       },
       {
         speaker: "bot",
-        content: `Feel free to click on our chat box whenever`
+        content: `To do that, scroll up to the top of the page and click on the "Tutorials" toolbar!`
+      },
+      {
+        speaker: "human",
+        variable: "needHelpStart",
+        buttons: [
+          {
+            text: `Got it! I'm there!`,
+            value: "yes"
+          }
+        ]
       },
       {
         speaker: "bot",
-        content: `Happy programming, {{=name}}!`
+        content: `Amazing! Do any seem relevant to making your {{=project}}!`
+      },
+      {
+        speaker: "bot",
+        content: `Feel free to click on and watch whichever seems helpful!`
+      },
+      {
+        speaker: "human",
+        variable: "needHelpStart",
+        buttons: [
+          {
+            text: `Sounds good, I've finished watching!`,
+            value: "yes"
+          }
+        ]
+      },
+      {
+        speaker: "bot",
+        content: `Good to hear!`
+      },
+      {
+        speaker: "bot",
+        content: `Did you think that the tutorial was helpful, {{=name}}?`
+      },
+      {
+        speaker: "human",
+        variable: "needHelpStart",
+        buttons: [
+          {
+            text: `Yes!`,
+            value: "yes"
+          },
+          {
+            text: `Nope!`,
+            value: "no"
+          }
+        ]
+      },
+      {
+        speaker: "bot",
+        content: `So glad to hear that!`
+      },
+      {
+        speaker: "bot",
+        content: `You just added a new tool to your "getting unstuck" toolbar: watching a tutorial!`
+      },
+      {
+        speaker: "bot",
+        content: `The next time you get stuck, feel free to try watching a tutorial. :)`
+      },
+      {
+        speaker: "bot",
+        content: `That's all for now {{=name}}, feel free to chat whenever!`
+      },
+      {
+        speaker: "bot",
+        content: `Happy programming!`
       }
+
+      // {
+      //   speaker: "bot",
+      //   content: `I don't know how to program myself, but will try to help you as you make your {{=project}}!`
+      // },
+      // {
+      //   speaker: "bot",
+      //   content: `Feel free to click on our chat box whenever`
+      // },
+      // {
+      //   speaker: "bot",
+      //   content: `Happy programming, {{=name}}!`
+      // }
     ]
   },
   {

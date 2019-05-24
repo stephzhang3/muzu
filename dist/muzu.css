@@ -1,18 +1,30 @@
 #muzu-chatbot {
   z-index: 1000;
   position: fixed;
-  bottom: 10px;
+  bottom: 0px;
   right: 500px;
   width: 250px;
   height: 250px;
   font-size: 9px;
 }
 
+button {
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 15px;
+}
+
 .minimize-button {
   position: absolute;
   z-index: 100000;
-  right: 5px;
-  top: 5px;
+  right: 60px;
+  top: 10px;
+}
+.expand-button {
+  position: absolute;
+  z-index: 100000;
+  right: 8px;
+  top: 10px;
 }
 
 .chatHeader {
